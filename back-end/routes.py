@@ -5,11 +5,25 @@ from model import Musica
 def home():
     return 'Link de acesso para as minhas músicas <a href="/index_musica">Minhas músicas</a>'
 
-@app.route('/index_musica')
-def index_musica():
+@app.route('/listar_musicas')
+def listar_musicas():
     musicas = db.session.query(Musica).all()
     json_musicas = [ musica.json() for musica in musicas ]
     resposta = jsonify(json_musicas)
     resposta.headers.add('Access-Control-Allow-Origin', '*')
     return resposta
 
+@app.route('/criar_musica', methods=['POST'])
+def criar_musica():
+    resposta = jsonify({'resultado':'ok', 'detalhes':'ok'})
+    dados = request.get_json()
+
+    try:
+        nova_musica = Musica(**dados)
+        db.session.add(nova_musica)
+        db.session.commit()
+    except Exception as e:
+        resposta = jsonify({'resultado':'erro', 'detalhes': str(e)})
+
+    resposta.headers.add('Access-Control-Allow-Origin', '*')
+    return resposta
