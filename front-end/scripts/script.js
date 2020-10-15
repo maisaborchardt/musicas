@@ -16,11 +16,15 @@ $(function() {
             mostrarConteudo("tabelaMusicas");      
             
             for (musica of musicas) {
-                novaLinha = `<tr>
+                novaLinha = `<tr id="linha_${musica.id}">
                             <td>${musica.nome}</td>
                             <td>${musica.banda}</td>
                             <td>${musica.data}</td>
                             <td>${musica.duracao}</td>
+                            <td><a href=# id="${musica.id}" class="excluir_musica">
+                                    <p class="badge badge-danger">Excluir</p>
+                                </a>
+                            </td>
                           </tr>`;
                 $('#tabelaMusicas').append(novaLinha);
             }
@@ -94,6 +98,31 @@ $(function() {
         }
     });
 
+    $(document).on("click", ".excluir_musica", function() {
+        var musicaId = $(this).attr("id");
+    
+        $.ajax({
+          url: `http://localhost:5000/excluir_musica/${musicaId}`,
+          type: "DELETE",
+          dataType: 'json',
+          success: excluirMusica,
+          error: erroAoExcluir
+        });
+    
+        function excluirMusica(retorno) {
+          if (retorno.resultado === "ok") {
+            $(`#linha_${musicaId}`).fadeOut(() => {
+                alert("Música excluída com sucesso!")
+            });
+          } else {
+            alert(`ERROR: ${retorno.resultado}: ${retorno.datalhes}`);
+          }
+        }
+    
+        function erroAoExcluir(retorno) {
+          alert("Error: Search on back-end");
+        }
+      });
     
     mostrarConteudo("conteudoInicial");
 });
