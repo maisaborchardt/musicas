@@ -27,3 +27,16 @@ def criar_musica():
 
     resposta.headers.add('Access-Control-Allow-Origin', '*')
     return resposta
+
+@app.route('/excluir_musica/<int:musica_id>', methods=['DELETE'])
+def excluir_musica(musica_id):
+    resposta = jsonify({'resultado':'ok', 'detalhes':'ok'})
+
+    try:
+        Musica.query.filter(Musica.id == musica_id).delete()
+        db.session.commit()
+    except Exception as e:
+        resposta = jsonify({'resultado':'erro', 'detalhes': str(e)})
+
+    resposta.headers.add('Access-Control-Allow-Origin', '*')
+    return resposta
