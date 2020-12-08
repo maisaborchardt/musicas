@@ -7,8 +7,6 @@ class Musica(db.Model):
     data = db.Column(db.String(254))
     duracao = db.Column(db.String(254))
 
-    playlist = db.relationship("PlayList", back_populates="musica")
-
 
     def __str__ (self):
         return f"{self.id}. {self.nome}; {self.banda}; {self.data}; {self.duracao}"
@@ -30,8 +28,6 @@ class Usuario(db.Model):
     idade = db.Column(db.Integer)
     premium = db.Column(db.Boolean)
 
-    playlist = db.relationship("PlayList", back_populates="usuario")
-
 
     def __str__ (self):
         return f"{self.id}. {self.nome}; {self.idade}; {self.premium};"
@@ -52,10 +48,10 @@ class PlayList(db.Model):
     data_criacao = db.Column(db.String(254))
 
     musica_id = db.Column(db.Integer, db.ForeignKey(Musica.id), nullable=False)
-    musica = db.relationship("Musica", back_populates="playlist")
+    musica = db.relationship("Musica")
 
     usuario_id = db.Column(db.Integer, db.ForeignKey(Usuario.id), nullable=False)
-    usuario = db.relationship("Usuario", back_populates="playlist")
+    usuario = db.relationship("Usuario")
 
 
     def __str__ (self):
@@ -70,9 +66,9 @@ class PlayList(db.Model):
             "nome": self.nome,
             "data_criacao": self.data_criacao,
             "musica_id": self.musica_id,
-            "musica": self.musica,
+            "musica": self.musica.json(),
             "usuario_id": self.usuario_id,
-            "usuario": self.usuario
+            "usuario": self.usuario.json()
         }
 
 
@@ -89,9 +85,7 @@ if __name__ == "__main__":
     db.session.add(usuario1)
 
     playlist1 = PlayList(nome="Trap", data_criacao="13/11/2020", musica=musica1, usuario=usuario1)
-    db.session.add(usuario1)
-
-
+    db.session.add(playlist1)
 
     db.session.commit()
 

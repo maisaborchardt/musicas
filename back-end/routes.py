@@ -1,5 +1,5 @@
 from config import *
-from model import Musica
+from models import Musica, Usuario, PlayList
 
 @app.route('/')
 def home():
@@ -38,5 +38,21 @@ def excluir_musica(musica_id):
     except Exception as e:
         resposta = jsonify({'resultado':'erro', 'detalhes': str(e)})
 
+    resposta.headers.add('Access-Control-Allow-Origin', '*')
+    return resposta
+
+@app.route('/listar_usuarios')
+def listar_usuarios():
+    usuarios = db.session.query(Usuario).all()
+    json_usuarios = [ usuario.json() for usuario in usuarios ]
+    resposta = jsonify(json_usuarios)
+    resposta.headers.add('Access-Control-Allow-Origin', '*')
+    return resposta
+
+@app.route('/listar_playlists')
+def listar_playlists():
+    playlists = db.session.query(PlayList).all()
+    json_playlists = [ playlist.json() for playlist in playlists ]
+    resposta = jsonify(json_playlists)
     resposta.headers.add('Access-Control-Allow-Origin', '*')
     return resposta
