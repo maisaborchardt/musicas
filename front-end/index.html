@@ -1,12 +1,12 @@
-  
+
 <!doctype html>
 <html lang="pt-br">
 
 <head>
-    
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-   
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <title>Cadastro de músicas</title>
@@ -16,18 +16,27 @@
     <div class="container">
 
         <nav class="navbar navbar-expand-lg navbar-light bg-light mt-2">
-
-           
-
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <div class="navbar-nav mr-auto">
-                    <span class="navbar-text">Cadastro de Músicas</span>
-                    <a class="nav-item nav-link" href="#" id="linkInicio">Início</a> 
-            
-                    <a class="nav-item nav-link" href="#" id="linkListarMusicas">Listar</a>
-                    <a class="nav-item nav-link" data-toggle="modal" 
-                        data-target="#modalIncluirMusica" href="#">Incluir</a>
-                </div>
+                <span class="navbar-text">Cadastro de Músicas</span>
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="linkInicio">Início</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownRegistros"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                        >
+                            Cadastros
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownRegistros">
+                            <a class="dropdown-item" href="#" id="linkListarMusicas">Músicas</a>
+                            <a class="dropdown-item" href="#" id="linkListarUsuarios">Usuários</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="linkListarPlayLists">Playlists</a>
+                    </li>
+                </ul>
             </div>
 
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -38,12 +47,10 @@
         </nav>
 
         <div id="corpoDaPagina">
-
-            <div id="conteudoInicial" class="invisible">
+            <div id="conteudoInicial">
                 Bem vindo ao cadastro de músicas.
             </div>
 
-            
             <div class="modal fade" id="modalIncluirMusica" tabindex="-1" role="dialog"
                 aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -92,24 +99,64 @@
                 </div>
             </div>
 
-           
-            <table class="table invisible table-striped table-hover" id="tabelaMusicas">
-                <thead>
-                    
-                    <tr>
-                        <th scope="col">Nome</th>
-                        <th scope="col">Banda</th>
-                        <th scope="col">Data</th>
-                        <th scope="col">Duração</th>
-                        <th scope="col">Operação</th>
-                    </tr>
-                </thead>
-                <tbody id="corpoTabelaMusicas">
-                  
-                </tbody>
-            </table>
+            <div class="container" id="musicas">
+                <table class="table table-striped table-hover" id="tabelaMusicas">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Banda</th>
+                            <th scope="col">Data</th>
+                            <th scope="col">Duração</th>
+                            <th scope="col">Operação</th>
+                        </tr>
+                    </thead>
+                    <tbody id="corpoTabelaMusicas">
+                    </tbody>
+                </table>
 
-        </div> 
+                <div class="container d-flex container justify-content-end">
+                    <button type="button" class="btn btn-primary">
+                        <a class="nav-item nav-link text-light" data-toggle="modal"
+                                data-target="#modalIncluirMusica" href="#">Incluir</a>
+                    </button>
+                </div>
+            </div>
+
+            <div class="container" id="usuarios">
+                <table class="table table-striped table-hover" id="tabelaUsuarios">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Idade</th>
+                            <th scope="col">Premium</th>
+                        </tr>
+                    </thead>
+                    <tbody id="corpoTabelaUsuarios">
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="container" id="playlists">
+                <table class="table table-striped table-hover" id="tabelaPlayLists">
+                    <thead>
+                        <tr>
+                            <th scope="col">Playlist</th>
+                            <th scope="col">Criada em</th>
+                            <th scope="col">Musica</th>
+                            <th scope="col">Banda</th>
+                            <th scope="col">Data</th>
+                            <th scope="col">Duração</th>
+                            <th scope="col">Usuario</th>
+                            <th scope="col">Idade</th>
+                            <th scope="col">Premium</th>
+                        </tr>
+                    </thead>
+                    <tbody id="corpoTabelaPlayLists">
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
     </div>
 
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -120,7 +167,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
-    
+
     <script src="scripts/script.js"></script>
 </body>
 
